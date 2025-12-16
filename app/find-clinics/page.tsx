@@ -952,7 +952,7 @@ export default function FindClinics() {
                   Partner Clinics
                   <span className="bg-blue-100 text-blue-700 text-xs px-2 py-1 rounded-full">Verified</span>
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-1 gap-3 md:gap-6">
+                <div className="grid grid-cols-1 gap-4 md:gap-6">
                   {registeredClinics.map((clinic) => (
                     <ClinicCard key={clinic.id} clinic={clinic} onBook={() => handleBookAppointment(clinic)} />
                   ))}
@@ -967,7 +967,7 @@ export default function FindClinics() {
                   <i className="ri-map-pin-2-line text-gray-500"></i>
                   Nearby Facilities
                 </h3>
-                <div className="grid grid-cols-2 md:grid-cols-1 gap-3 md:gap-6">
+                <div className="grid grid-cols-1 gap-4 md:gap-6">
                   {otherClinics.map((clinic) => (
                     <ClinicCard key={clinic.id} clinic={clinic} onBook={() => handleBookAppointment(clinic)} />
                   ))}

@@ -108,7 +108,7 @@ export default function Signup() {
 
       // Optionally redirect after a delay
       setTimeout(() => {
-        router.push('/dashboard');
+        router.push('/');
       }, 2000);
 
     } catch (error: any) {

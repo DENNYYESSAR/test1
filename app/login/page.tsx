@@ -26,7 +26,7 @@ export default function Login() {
       if (role === 'admin') {
         router.push('/admin');
       } else {
-        router.push('/dashboard');
+        router.push('/');
       }
     }
   }, [user, authLoading, router]);
@@ -75,7 +75,7 @@ export default function Login() {
       if (role === 'admin') {
         router.push('/admin');
       } else {
-        router.push('/dashboard');
+        router.push('/');
       }
 
     } catch (err: any) {
