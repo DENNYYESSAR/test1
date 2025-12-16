@@ -18,7 +18,7 @@ export default function ContactSupport() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [clearSuccess, setClearSuccess] = useState(false);
-  const [selectedHelp, setSelectedHelp] = useState<{title: string, content: string} | null>(null);
+  const [selectedHelp, setSelectedHelp] = useState<{title: string, content: string, icon: string} | null>(null);
 
   const quickHelpItems = [
     { 
