@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 120">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0284c7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0ea5e9;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0d9488;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#14b8a6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Icon Part -->
+  <g>
+    <!-- Outer Shield/Link Shape -->
+    <path d="M50 10 C 20 10, 10 30, 10 50 C 10 80, 50 110, 50 110 C 50 110, 90 80, 90 50 C 90 30, 80 10, 50 10 Z" fill="none" stroke="url(#grad1)" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Pulse Line -->
+    <path d="M25 50 L 40 50 L 45 35 L 55 65 L 60 50 L 75 50" fill="none" stroke="url(#grad2)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    
+    <!-- Connection Dots -->
+    <circle cx="45" cy="35" r="3" fill="#0d9488"/>
+    <circle cx="55" cy="65" r="3" fill="#0d9488"/>
+  </g>
+</svg>

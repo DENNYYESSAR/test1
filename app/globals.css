@@ -1,0 +1,298 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.5.0/remixicon.min.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    background-image: linear-gradient(135deg, #bae6fd 0%, #e9d5ff 100%);
+    background-attachment: fixed;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-white/50 backdrop-blur-xl border border-white/20 shadow-xl;
+  }
+  
+  .btn-primary {
+    @apply bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl font-medium 
+    hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-gray-700 border border-gray-200 px-6 py-3 rounded-xl font-medium
+    hover:bg-gray-50 hover:border-gray-300 transition-all duration-300;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-gray-200 bg-white/50 backdrop-blur-sm
+    focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-300 outline-none;
+  }
+}
+
+/* Custom animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(59, 130, 246, 0.8);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 0.7s ease-out;
+}
+
+.animate-slideInRight {
+  animation: slideInRight 0.7s ease-out;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.3s ease-out;
+}
+
+/* Custom utilities */
+.text-gradient {
+  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+  transform: perspective(1000px) rotateX(0deg);
+}
+
+.card-hover:hover {
+  transform: perspective(1000px) rotateX(5deg) translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.button-interactive {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.button-interactive::before {
+  display: none;
+}
+
+.input-focus {
+  transition: all 0.3s ease;
+}
+
+.input-focus:focus {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+}
+
+/* Responsive font sizes */
+.text-responsive-xl {
+  font-size: clamp(1.5rem, 5vw, 3.5rem);
+}
+
+.text-responsive-lg {
+  font-size: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+/* Smooth page transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Optimized page transitions - faster for snappier feel */
+.page-transition {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Disable CSS animations when View Transitions API is available */
+@supports (view-transition-name: root) {
+  .page-transition {
+    animation: none;
+  }
+}
+
+/* View transition for Next.js navigation */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    view-transition-name: root;
+  }
+}
+
+/* Smooth content rendering */
+main, section, article {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Page-specific animations for non-home pages */
+.page-content {
+  animation: fadeInSlide 0.6s ease-out;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Prevent flickering during navigation */
+header {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000px;
+  -webkit-perspective: 1000px;
+}
+
+/* Hardware acceleration for smooth transitions - only apply will-change during transitions */
+a, button {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Apply will-change only during active transitions to avoid unnecessary GPU layers */
+a:hover, button:hover, a:focus, button:focus {
+  will-change: transform;
+}
+
+a:not(:hover):not(:focus), button:not(:hover):not(:focus) {
+  will-change: auto;
+}
+
+/* Disable pointer events during page transitions */
+body.transitioning * {
+  pointer-events: none !important;
+}
+
+/* Loading animations */
+.loading-dots::after {
+  content: '';
+  animation: dots 2s infinite;
+}
+
+@keyframes dots {
+  0%, 20% {
+    content: '';
+  }
+  40% {
+    content: '.';
+  }
+  60% {
+    content: '..';
+  }
+  80%, 100% {
+    content: '...';
+  }
+}

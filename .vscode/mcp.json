@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "postgres": {
+      "command": "/home/dennis/Downloads/AfyaLynx/.venv/bin/uvx",
+      "args": ["mcp-server-postgres", "--db-url", "postgresql://postgres:Nyantabagia254$@db.szlweyvvqbmmtkhcqqjd.supabase.co:5432/postgres"]
+    }
+  }
+}
