@@ -139,7 +139,7 @@ const ClinicCard = ({ clinic, onBook }: { clinic: Clinic; onBook: () => void }) 
         {clinic.source === 'registered' ? (
           <button
             onClick={onBook}
-            className="flex-1 btn-primary py-2 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-bold shadow-lg shadow-primary-500/20 flex items-center justify-center gap-2"
+            className="flex-1 lg:flex-none btn-primary py-2 md:py-3 rounded-lg md:rounded-xl text-xs md:text-sm font-bold shadow-lg shadow-primary-500/20 flex items-center justify-center gap-2"
           >
             <span>Book</span>
             <i className="ri-arrow-right-line"></i>
@@ -147,7 +147,7 @@ const ClinicCard = ({ clinic, onBook }: { clinic: Clinic; onBook: () => void }) 
         ) : (
           <a
             href={`tel:${clinic.phone}`}
-            className="flex-1 py-2 md:py-3 rounded-lg md:rounded-xl bg-green-50 text-green-700 border border-green-200 text-xs md:text-sm font-bold hover:bg-green-100 transition-all flex items-center justify-center gap-2"
+            className="flex-1 lg:flex-none py-2 md:py-3 rounded-lg md:rounded-xl bg-green-50 text-green-700 border border-green-200 text-xs md:text-sm font-bold hover:bg-green-100 transition-all flex items-center justify-center gap-2"
           >
             <i className="ri-phone-fill"></i>
             <span>Call</span>
