@@ -160,7 +160,7 @@ export default function AdminDashboard() {
           <div className="glass-panel mb-8">
             <div className="border-b border-gray-200/50">
               <nav className="flex space-x-2 px-6 overflow-x-auto">
-                {['overview', 'clinics', 'doctors', 'blogs', 'users'].map((tab) => (
+                {['overview', 'clinics', 'doctors', 'blogs', 'reviews', 'users'].map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
@@ -170,7 +170,7 @@ export default function AdminDashboard() {
                       }`}
                   >
                     <i className={`ri-${tab === 'overview' ? 'dashboard' : tab === 'clinics' ? 'hospital' : tab === 'doctors' ? 'nurse' : tab === 'blogs' ? 'article' : 'team'}-line text-lg`}></i>
-                    <span>{tab === 'overview' ? 'Dashboard Overview' : tab === 'clinics' ? 'Manage Clinics' : tab === 'doctors' ? 'Manage Doctors' : tab === 'blogs' ? 'Manage Blog Posts' : 'User Management'}</span>
+                    <span>{tab === 'overview' ? 'Dashboard Overview' : tab === 'clinics' ? 'Manage Clinics' : tab === 'doctors' ? 'Manage Doctors' : tab === 'blogs' ? 'Manage Blog Posts' : tab === 'reviews' ? 'User Reviews' : 'User Management'}</span>
                   </button>
                 ))}
               </nav>
@@ -181,6 +181,7 @@ export default function AdminDashboard() {
               {activeTab === 'clinics' && <ClinicsManagement />}
               {activeTab === 'doctors' && <DoctorsManagement />}
               {activeTab === 'blogs' && <BlogsManagement />}
+              {activeTab === 'reviews' && <ReviewsManagement />}
               {activeTab === 'users' && <UsersManagement />}
             </div>
           </div>
@@ -1287,7 +1288,7 @@ function DoctorsManagement() {
   const [editingDoctor, setEditingDoctor] = useState<any>(null);
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
-  
+
   // Edit Form Data
   const [formData, setFormData] = useState({
     specialty: '',
@@ -1495,9 +1496,8 @@ function DoctorsManagement() {
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      doc.status === 'online' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                    }`}>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${doc.status === 'online' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                      }`}>
                       {doc.status || 'Offline'}
                     </span>
                   </td>
@@ -1698,6 +1698,90 @@ function DoctorsManagement() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function ReviewsManagement() {
+  const { user } = useAuth();
+  const [reviews, setReviews] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchReviews();
+  }, []);
+
+  const fetchReviews = async () => {
+    if (!user) return;
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch('/api/admin/reviews', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setReviews(data);
+      }
+    } catch (e) {
+      console.error('Failed to fetch reviews', e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    if (!user || !confirm('Are you sure you want to delete this review?')) return;
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch(`/api/admin/reviews?id=${id}`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        setReviews(prev => prev.filter(r => r.id !== id));
+      } else {
+        alert('Failed to delete review');
+      }
+    } catch (e) {
+      console.error(e);
+      alert('Error deleting review');
+    }
+  };
+
+  if (loading) return <div>Loading reviews...</div>;
+
+  return (
+    <div className="space-y-6">
+      <h2 className="text-2xl font-bold text-gray-900">User Reviews</h2>
+      <div className="grid gap-6">
+        {reviews.map((review) => (
+          <div key={review.id} className="glass-panel p-6 flex justify-between items-start">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <h3 className="font-bold text-lg">{review.name}</h3>
+                <span className="px-2 py-1 bg-blue-50 text-blue-600 text-xs rounded-full">{review.role}</span>
+                <span className="text-sm text-gray-500">{new Date(review.created_at).toLocaleDateString()}</span>
+              </div>
+              <div className="flex text-yellow-400 mb-2">
+                {[...Array(5)].map((_, i) => (
+                  <i key={i} className={`ri-star-${i < review.rating ? 'fill' : 'line'}`}></i>
+                ))}
+              </div>
+              <p className="text-gray-700">{review.comment}</p>
+            </div>
+            <button
+              onClick={() => handleDelete(review.id)}
+              className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+              title="Delete Review"
+            >
+              <i className="ri-delete-bin-line text-xl"></i>
+            </button>
+          </div>
+        ))}
+        {reviews.length === 0 && (
+          <p className="text-gray-500 text-center py-10">No reviews found.</p>
+        )}
+      </div>
     </div>
   );
 }

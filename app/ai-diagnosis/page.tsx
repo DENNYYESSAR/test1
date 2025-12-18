@@ -79,7 +79,23 @@ export default function AIDiagnosis() {
       setDiagnosis(result);
     } catch (err: any) {
       console.error(err);
-      setError(err.message || 'An error occurred during analysis. Please try again.');
+      // Show user-friendly message for API errors
+      const errorMessage = err.message || '';
+      if (
+        errorMessage.includes('503') || 
+        errorMessage.includes('overloaded') || 
+        errorMessage.includes('Service Unavailable') ||
+        errorMessage.includes('429') ||
+        errorMessage.includes('quota') ||
+        errorMessage.includes('rate limit') ||
+        errorMessage.includes('Rate Limit')
+      ) {
+        setError('Our AI service is currently experiencing high demand. Please wait a moment and try again. We appreciate your patience! 🙏');
+      } else if (errorMessage.includes('GEMINI_API_KEY')) {
+        setError('The AI service is temporarily unavailable. Please try again later.');
+      } else {
+        setError('Something went wrong while analyzing your symptoms. Please try again in a few moments.');
+      }
     } finally {
       setIsAnalyzing(false);
     }
@@ -146,9 +162,9 @@ export default function AIDiagnosis() {
               </div>
             </div>
 
-            {/* How It Works */}
+            {/* Simple 3-Step Process */}
             <div className="mb-20">
-              <h2 className="text-3xl font-bold text-gray-900 mb-12">How It Works</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-12">Simple 3-Step Process</h2>
               <div className="grid md:grid-cols-3 gap-8">
                 <div className="relative p-6">
                   <div className="text-6xl font-bold text-blue-100 absolute top-0 left-0 -z-10">01</div>
@@ -355,9 +371,22 @@ export default function AIDiagnosis() {
           </div>
 
           {error && (
-            <div className="mt-8 bg-red-50 border border-red-100 text-red-600 p-4 rounded-xl flex items-center gap-3 animate-fade-in">
-              <i className="ri-error-warning-fill text-xl"></i>
-              <p>{error}</p>
+            <div className="mt-8 bg-amber-50 border border-amber-200 text-amber-800 p-5 rounded-xl flex items-start gap-4 animate-fade-in">
+              <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <i className="ri-time-line text-xl text-amber-600"></i>
+              </div>
+              <div>
+                <h4 className="font-semibold text-amber-900 mb-1">Please Wait</h4>
+                <p className="text-sm">{error}</p>
+                <button 
+                  onClick={handleAnalyze}
+                  disabled={isAnalyzing || !symptoms.trim() || !age || !gender}
+                  className="mt-3 text-sm font-medium text-amber-700 hover:text-amber-900 flex items-center gap-1 transition-colors"
+                >
+                  <i className="ri-refresh-line"></i>
+                  Try Again
+                </button>
+              </div>
             </div>
           )}
 

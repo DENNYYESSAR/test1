@@ -563,9 +563,9 @@ export default function FindClinics() {
               </div>
             </div>
 
-            {/* How It Works Section */}
+            {/* Find Your Perfect Clinic */}
             <div className="mb-20">
-              <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">How It Works</h2>
+              <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">Find Your Perfect Clinic</h2>
               <div className="grid md:grid-cols-4 gap-8">
                 <div className="relative">
                   <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-xl font-bold text-primary-600 shadow-md mx-auto mb-4 border-2 border-primary-100 z-10 relative">1</div>

@@ -25,10 +25,10 @@ export async function analyzeSymptoms(data: {
 
     try {
         console.log('Starting AI Analysis...');
-        // gemini-2.5-flash confirmed in user dashboard
+        // Using gemini-2.5-flash for advanced AI responses
         const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
-        console.log('Model initialized: gemini-2.5-flash');
+        console.log('Model initialized: gemini-1.5-flash-latest');
 
         const prompt = `
       Act as an advanced medical diagnostic AI. Application name is AfyaLynx.
@@ -70,12 +70,12 @@ export async function analyzeSymptoms(data: {
 
         if (error.message?.includes('429') || error.message?.includes('Quota exceeded')) {
             console.error('Rate Limit hit');
-            throw new Error('Free Tier Rate Limit Reached. Please wait 60 seconds and try again. (Model: gemini-2.0-flash-lite)');
+            throw new Error('Free Tier Rate Limit Reached. Please wait 60 seconds and try again.');
         }
 
         if (error.message?.includes('404')) {
             console.error('Model Not Found');
-            throw new Error(`AI Model not found (gemini-2.0-flash-lite). Please check your API key permissions.`);
+            throw new Error(`AI Model not found. Please check your API key permissions.`);
         }
 
         throw new Error(`Analysis Failed: ${error.message}`);
